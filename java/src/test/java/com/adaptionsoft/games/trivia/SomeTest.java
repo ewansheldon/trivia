@@ -11,24 +11,25 @@ import java.util.Scanner;
 
 public class SomeTest {
 
-	@Test
-	public void golden_master_test() throws Exception {
-		String golden = getStringBuilder("goldenMaster.txt").toString();
-		GameRunner.mainTest();
-		String sample = getStringBuilder("sample.txt").toString();
+    @Test
+    public void golden_master_test() throws Exception {
+        for (int i = 0; i < 10; i++) {
+            GameRunner.mainTest();
+            String golden = getStringBuilder("goldenMaster.txt").toString();
+            String sample = getStringBuilder("sample.txt").toString();
 
-		assertEquals(golden, sample);
-	}
+            assertEquals(golden, sample);
+        }
+    }
 
-	private static StringBuilder getStringBuilder(String path) throws FileNotFoundException {
-		StringBuilder file = new StringBuilder();
-		File goldenMaster = new File(path);
-		Scanner myReader = new Scanner(goldenMaster);
-		while (myReader.hasNextLine()) {
-			file.append(myReader.nextLine());
-		}
-		System.out.println(file.toString());
-		myReader.close();
-		return file;
-	}
+    private static StringBuilder getStringBuilder(String path) throws FileNotFoundException {
+        StringBuilder file = new StringBuilder();
+        File goldenMaster = new File(path);
+        Scanner myReader = new Scanner(goldenMaster);
+        while (myReader.hasNextLine()) {
+            file.append(myReader.nextLine());
+        }
+        myReader.close();
+        return file;
+    }
 }
