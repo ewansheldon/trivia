@@ -40,15 +40,18 @@ public class GameRunner {
   }
 
   public static void mainTest() throws FileNotFoundException {
-    playGoldenMasterGame(new Game());
-    playTestGame(new GameNew());
+    playGoldenMasterGame();
+    playTestGame();
   }
 
-  private static void playGoldenMasterGame(Game aGame) throws FileNotFoundException {
+  private static void playGoldenMasterGame() throws FileNotFoundException {
+    Game aGame = new Game();
     randomNumbers = new ArrayList<>();
     setWriteOutput("goldenMaster.txt");
 
-    addPlayers(aGame);
+    aGame.add("Chet");
+    aGame.add("Pat");
+    aGame.add("Sue");
 
     Random rand = new Random();
     do {
@@ -56,7 +59,11 @@ public class GameRunner {
       aGame.roll(roll);
 
       int correctNumber = rand.nextInt(9);
-      determineIfWinner(aGame, correctNumber);
+      if (correctNumber == 7) {
+        notAWinner = aGame.wrongAnswer();
+      } else {
+        notAWinner = aGame.wasCorrectlyAnswered();
+      }
       captureNumbers(roll, correctNumber);
     } while (notAWinner);
   }
@@ -66,32 +73,27 @@ public class GameRunner {
     randomNumbers.add(correctNumber);
   }
 
-  private static void playTestGame(Game aGame) throws FileNotFoundException {
+  private static void playTestGame() throws FileNotFoundException {
+    GameNew aGame = new GameNew();
+
     setWriteOutput("sample.txt");
-    addPlayers(aGame);
+    aGame.add("Chet");
+    aGame.add("Pat");
+    aGame.add("Sue");
 
     for (int i = 0; i < randomNumbers.size(); i++) {
       if (i % 2 == 0) {
         aGame.roll(randomNumbers.get(i));
       } else {
-        determineIfWinner(aGame, randomNumbers.get(i));
+        if (randomNumbers.get(i) == 7) {
+          notAWinner = aGame.wrongAnswer();
+        } else {
+          notAWinner = aGame.wasCorrectlyAnswered();
+        }
       }
     }
   }
 
-  private static void addPlayers(Game aGame) {
-    aGame.add("Chet");
-    aGame.add("Pat");
-    aGame.add("Sue");
-  }
-
-  private static void determineIfWinner(Game aGame, int i) {
-    if (i == 7) {
-      notAWinner = aGame.wrongAnswer();
-    } else {
-      notAWinner = aGame.wasCorrectlyAnswered();
-    }
-  }
 
   private static void setWriteOutput(String path) throws FileNotFoundException {
     File file = new File(path);
