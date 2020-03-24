@@ -1,6 +1,5 @@
 package com.adaptionsoft.games.trivia;
 
-import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.adaptionsoft.games.trivia.runner.GameRunner;

@@ -45,11 +45,11 @@ public class GameRunner {
   }
 
   private static void playGoldenMasterGame(Game aGame) throws FileNotFoundException {
+    randomNumbers = new ArrayList<>();
     setWriteOutput("goldenMaster.txt");
 
     addPlayers(aGame);
 
-    randomNumbers = new ArrayList<>();
     Random rand = new Random();
     do {
       int roll = rand.nextInt(5) + 1;
@@ -74,7 +74,7 @@ public class GameRunner {
       if (i % 2 == 0) {
         aGame.roll(randomNumbers.get(i));
       } else {
-        determineIfWinner(aGame, i);
+        determineIfWinner(aGame, randomNumbers.get(i));
       }
     }
   }
@@ -86,7 +86,7 @@ public class GameRunner {
   }
 
   private static void determineIfWinner(Game aGame, int i) {
-    if (randomNumbers.get(i) == 7) {
+    if (i == 7) {
       notAWinner = aGame.wrongAnswer();
     } else {
       notAWinner = aGame.wasCorrectlyAnswered();
