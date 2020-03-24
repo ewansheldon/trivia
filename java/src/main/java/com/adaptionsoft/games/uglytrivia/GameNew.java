@@ -1,30 +1,27 @@
 package com.adaptionsoft.games.uglytrivia;
 
-import java.util.ArrayList;
-
 public class GameNew {
 
-  private ArrayList<Player> players;
-  int currentPlayer;
-  private QuestionMaster questionMaster;
+  private PlayerService playerService;
+  private QuestionService questionService;
 
   boolean isGettingOutOfPenaltyBox;
   private Player player;
 
   public GameNew() {
-    players = new ArrayList<>();
-    questionMaster = new QuestionMaster();
+    playerService = new PlayerService();
+    questionService = new QuestionService();
   }
 
   public void add(String playerName) {
-    players.add(new Player(playerName));
+    playerService.addPlayer(playerName);
 
     System.out.println(playerName + " was added");
-    System.out.println("They are player number " + players.size());
+    System.out.println("They are player number " + playerService.getTotalPlayers());
   }
 
   public void roll(int roll) {
-    player = players.get(currentPlayer);
+    player = playerService.getCurrentPlayer();
 
     System.out.println(player.getName() + " is the current player");
     System.out.println("They have rolled a " + roll);
@@ -54,8 +51,8 @@ public class GameNew {
   }
 
   private void askQuestion() {
-    System.out.println("The category is " + questionMaster.getCategory(player.getPosition()));
-    questionMaster.getQuestion(player.getPosition());
+    System.out.println("The category is " + questionService.getCategory(player.getPosition()));
+    questionService.getQuestion(player.getPosition());
   }
 
   public boolean wasCorrectlyAnswered() {
@@ -69,23 +66,16 @@ public class GameNew {
             + " Gold Coins.");
 
         boolean winner = didPlayerWin();
-        nextPlayer();
-        if (currentPlayer == players.size()) {
-          currentPlayer = 0;
-        }
 
+        playerService.nextPlayer();
         return winner;
       } else {
-        nextPlayer();
-        if (currentPlayer == players.size()) {
-          currentPlayer = 0;
-        }
+        playerService.nextPlayer();
         return true;
       }
 
 
     } else {
-
       System.out.println("Answer was corrent!!!!");
       player.addToPurse();
       System.out.println(player.getName()
@@ -94,11 +84,7 @@ public class GameNew {
           + " Gold Coins.");
 
       boolean winner = didPlayerWin();
-      nextPlayer();
-      if (currentPlayer == players.size()) {
-        currentPlayer = 0;
-      }
-
+      playerService.nextPlayer();
       return winner;
     }
   }
@@ -109,7 +95,7 @@ public class GameNew {
 
     player.putInPenaltyBox();
 
-    nextPlayer();
+    playerService.nextPlayer();
     return true;
   }
 
@@ -118,11 +104,4 @@ public class GameNew {
     return !(player.getPurse() == 6);
   }
 
-  private int nextPlayer() {
-    currentPlayer++;
-    if (currentPlayer == players.size()) {
-      currentPlayer = 0;
-    }
-    return currentPlayer;
-  }
 }

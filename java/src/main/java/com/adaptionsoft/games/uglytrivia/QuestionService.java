@@ -2,7 +2,7 @@ package com.adaptionsoft.games.uglytrivia;
 
 import java.util.LinkedList;
 
-public class QuestionMaster {
+public class QuestionService {
 
   public static final int MAXIMUM_QUESTIONS = 50;
 
@@ -12,7 +12,7 @@ public class QuestionMaster {
   LinkedList<String> rockQuestions;
 
 
-  public QuestionMaster() {
+  public QuestionService() {
     popQuestions = new LinkedList<>();
     scienceQuestions = new LinkedList<>();
     sportsQuestions = new LinkedList<>();
