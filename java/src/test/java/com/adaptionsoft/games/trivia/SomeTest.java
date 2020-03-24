@@ -1,20 +1,17 @@
 package com.adaptionsoft.games.trivia;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import com.adaptionsoft.games.uglytrivia.Game;
 import com.adaptionsoft.games.uglytrivia.GameNew;
-import org.junit.jupiter.api.Test;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 public class SomeTest {
-    private static ArrayList<Integer> randomNumbers;
     private static boolean notAWinner;
 
     @Test
@@ -46,7 +43,6 @@ public class SomeTest {
 
     private static void playGoldenMasterGame(int seed) throws FileNotFoundException {
         Game aGame = new Game();
-        randomNumbers = new ArrayList<>();
         setWriteOutput("goldenMaster.txt");
 
         aGame.add("Chet");

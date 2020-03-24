@@ -26,8 +26,32 @@ public class PlayerService {
     }
   }
 
-  public int getTotalPlayers(){
+  public int getTotalPlayers() {
     return players.size();
   }
 
+  public void movePlayer(int roll) {
+    getCurrentPlayer().move(roll);
+  }
+
+  public String getCurrentPlayerName() {
+    return getCurrentPlayer().getName();
+  }
+
+  public int getCurrentPlayerPosition() {
+    return getCurrentPlayer().getPosition();
+  }
+
+
+  public void putCurrentPlayerInPenaltyBox() {
+    getCurrentPlayer().putInPenaltyBox();
+  }
+
+  public int getCurrentPlayerPurse() {
+    return getCurrentPlayer().getPurse();
+  }
+
+  public void addToCurrentPlayerPurse() {
+    getCurrentPlayer().addToPurse();
+  }
 }
