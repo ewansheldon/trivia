@@ -1,8 +1,9 @@
 package com.adaptionsoft.games.trivia;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.adaptionsoft.games.uglytrivia.Game;
+import com.adaptionsoft.games.uglytrivia.GameNew;
+import org.junit.jupiter.api.Test;
 
-import com.adaptionsoft.games.trivia.runner.GameRunner;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
@@ -10,9 +11,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-import com.adaptionsoft.games.uglytrivia.Game;
-import com.adaptionsoft.games.uglytrivia.GameNew;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SomeTest {
     private static ArrayList<Integer> randomNumbers;
@@ -21,7 +20,7 @@ public class SomeTest {
     @Test
     public void golden_master_test() throws Exception {
         for (int i = 0; i < 10; i++) {
-            mainTest(i);
+            mainTest(new Random().nextInt());
             String golden = getStringBuilder("goldenMaster.txt").toString();
             String sample = getStringBuilder("sample.txt").toString();
 
@@ -40,12 +39,12 @@ public class SomeTest {
         return file;
     }
 
-    public static void mainTest(int i) throws FileNotFoundException {
-        playGoldenMasterGame();
-        playTestGame();
+    public static void mainTest(int seed) throws FileNotFoundException {
+        playGoldenMasterGame(seed);
+        playTestGame(seed);
     }
 
-    private static void playGoldenMasterGame() throws FileNotFoundException {
+    private static void playGoldenMasterGame(int seed) throws FileNotFoundException {
         Game aGame = new Game();
         randomNumbers = new ArrayList<>();
         setWriteOutput("goldenMaster.txt");
@@ -54,27 +53,20 @@ public class SomeTest {
         aGame.add("Pat");
         aGame.add("Sue");
 
-        Random rand = new Random();
+        Random rand = new Random(seed);
         do {
-            int roll = rand.nextInt(5) + 1;
-            aGame.roll(roll);
+            aGame.roll(rand.nextInt(5) + 1);
 
-            int correctNumber = rand.nextInt(9);
-            if (correctNumber == 7) {
+            if (rand.nextInt(9) == 7) {
                 notAWinner = aGame.wrongAnswer();
             } else {
                 notAWinner = aGame.wasCorrectlyAnswered();
             }
-            captureNumbers(roll, correctNumber);
+
         } while (notAWinner);
     }
 
-    private static void captureNumbers(int roll, int correctNumber) {
-        randomNumbers.add(roll);
-        randomNumbers.add(correctNumber);
-    }
-
-    private static void playTestGame() throws FileNotFoundException {
+    private static void playTestGame(int seed) throws FileNotFoundException {
         GameNew aGame = new GameNew();
 
         setWriteOutput("sample.txt");
@@ -82,17 +74,17 @@ public class SomeTest {
         aGame.add("Pat");
         aGame.add("Sue");
 
-        for (int i = 0; i < randomNumbers.size(); i++) {
-            if (i % 2 == 0) {
-                aGame.roll(randomNumbers.get(i));
+        Random rand = new Random(seed);
+        do {
+            aGame.roll(rand.nextInt(5) + 1);
+
+            if (rand.nextInt(9) == 7) {
+                notAWinner = aGame.wrongAnswer();
             } else {
-                if (randomNumbers.get(i) == 7) {
-                    notAWinner = aGame.wrongAnswer();
-                } else {
-                    notAWinner = aGame.wasCorrectlyAnswered();
-                }
+                notAWinner = aGame.wasCorrectlyAnswered();
             }
-        }
+
+        } while (notAWinner);
     }
 
 
