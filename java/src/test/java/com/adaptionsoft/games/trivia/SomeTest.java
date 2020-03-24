@@ -1,13 +1,13 @@
 package com.adaptionsoft.games.trivia;
 
 import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.adaptionsoft.games.trivia.runner.GameRunner;
-import org.junit.Test;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import org.junit.jupiter.api.Test;
 
 public class SomeTest {
 

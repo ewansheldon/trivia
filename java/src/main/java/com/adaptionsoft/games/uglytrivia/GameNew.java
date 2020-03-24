@@ -3,7 +3,7 @@ package com.adaptionsoft.games.uglytrivia;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-public class GameNew {
+public class GameNew extends Game {
     ArrayList players = new ArrayList();
     int[] places = new int[6];
     int[] purses  = new int[6];
