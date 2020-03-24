@@ -41,16 +41,12 @@ public class GameNew {
 
   public void add(String playerName) {
     players.add(playerName);
-    places[howManyPlayers()] = 0;
-    purses[howManyPlayers()] = 0;
-    inPenaltyBox[howManyPlayers()] = false;
+    places[players.indexOf(playerName)] = 0;
+    purses[players.indexOf(playerName)] = 0;
+    inPenaltyBox[players.indexOf(playerName)] = false;
 
     System.out.println(playerName + " was added");
     System.out.println("They are player number " + players.size());
-  }
-
-  public int howManyPlayers() {
-    return players.size();
   }
 
   public void roll(int roll) {
