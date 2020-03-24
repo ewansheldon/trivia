@@ -4,6 +4,7 @@ public class Player {
     private String playerName;
     private int position;
     private int purse;
+    private boolean inPenaltyBox;
 
     public Player(String playerName) {
         this.playerName = playerName;
@@ -27,5 +28,13 @@ public class Player {
 
     public int getPurse() {
         return purse;
+    }
+
+    public boolean isInPenaltyBox() {
+        return inPenaltyBox;
+    }
+
+    public void putInPenaltyBox() {
+        inPenaltyBox = true;
     }
 }
