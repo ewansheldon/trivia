@@ -7,7 +7,6 @@ public class GameNew {
 
   public static final int MAXIMUM_QUESTIONS = 50;
 
-  private ArrayList<String> players;
   private ArrayList<Player> realPlayers;
   int[] places = new int[6];
   int[] purses = new int[6];
@@ -22,7 +21,6 @@ public class GameNew {
   boolean isGettingOutOfPenaltyBox;
 
   public GameNew() {
-    players = new ArrayList<>();
     popQuestions = new LinkedList<>();
     scienceQuestions = new LinkedList<>();
     sportsQuestions = new LinkedList<>();
@@ -43,14 +41,14 @@ public class GameNew {
   }
 
   public void add(String playerName) {
-    players.add(playerName);
-    realPlayers.add(new Player(playerName));
-    places[players.indexOf(playerName)] = 0;
-    purses[players.indexOf(playerName)] = 0;
-    inPenaltyBox[players.indexOf(playerName)] = false;
+    Player player = new Player(playerName);
+    realPlayers.add(player);
+    places[realPlayers.indexOf(player)] = 0;
+    purses[realPlayers.indexOf(player)] = 0;
+    inPenaltyBox[realPlayers.indexOf(player)] = false;
 
     System.out.println(playerName + " was added");
-    System.out.println("They are player number " + players.size());
+    System.out.println("They are player number " + realPlayers.size());
   }
 
   public void roll(int roll) {
@@ -145,14 +143,14 @@ public class GameNew {
 
         boolean winner = didPlayerWin();
         currentPlayer++;
-        if (currentPlayer == players.size()) {
+        if (currentPlayer == realPlayers.size()) {
           currentPlayer = 0;
         }
 
         return winner;
       } else {
         currentPlayer++;
-        if (currentPlayer == players.size()) {
+        if (currentPlayer == realPlayers.size()) {
           currentPlayer = 0;
         }
         return true;
@@ -170,7 +168,7 @@ public class GameNew {
 
       boolean winner = didPlayerWin();
       currentPlayer++;
-      if (currentPlayer == players.size()) {
+      if (currentPlayer == realPlayers.size()) {
         currentPlayer = 0;
       }
 
@@ -184,7 +182,7 @@ public class GameNew {
     inPenaltyBox[currentPlayer] = true;
 
     currentPlayer++;
-    if (currentPlayer == players.size()) {
+    if (currentPlayer == realPlayers.size()) {
       currentPlayer = 0;
     }
     return true;
