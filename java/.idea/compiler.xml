@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="uglytrivia" target="1.6" />
+      <module name="uglytrivia" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
