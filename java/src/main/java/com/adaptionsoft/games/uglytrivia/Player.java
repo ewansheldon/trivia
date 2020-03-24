@@ -20,6 +20,10 @@ public class Player {
 
     public void move(int roll) {
         position += roll;
+
+        if (position > 11) {
+            position -= 12;
+        }
     }
 
     public void addToPurse() {
