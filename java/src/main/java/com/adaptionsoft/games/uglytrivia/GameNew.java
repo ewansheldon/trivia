@@ -8,13 +8,14 @@ public class GameNew {
   public static final int MAXIMUM_QUESTIONS = 50;
 
   private ArrayList<Player> players;
+  int currentPlayer;
+  private QuestionMaster question;
 
   LinkedList<String> popQuestions;
   LinkedList<String> scienceQuestions;
   LinkedList<String> sportsQuestions;
   LinkedList<String> rockQuestions;
 
-  int currentPlayer;
   boolean isGettingOutOfPenaltyBox;
 
   public GameNew() {
@@ -24,17 +25,7 @@ public class GameNew {
     rockQuestions = new LinkedList<>();
 
     players = new ArrayList<>();
-
-    createQuestions();
-  }
-
-  private void createQuestions() {
-    for (int i = 0; i < MAXIMUM_QUESTIONS; i++) {
-      popQuestions.addLast("Pop Question " + i);
-      scienceQuestions.addLast(("Science Question " + i));
-      sportsQuestions.addLast(("Sports Question " + i));
-      rockQuestions.addLast("Rock Question " + i);
-    }
+    question = new QuestionMaster();
   }
 
   public void add(String playerName) {
@@ -63,7 +54,7 @@ public class GameNew {
         System.out.println(player.getName()
             + "'s new location is "
             + player.getPosition());
-        System.out.println("The category is " + currentCategory());
+        System.out.println("The category is " + question.getCategory(player.getPosition()));
         askQuestion();
       } else {
         System.out.println(player.getName() + " is not getting out of the penalty box");
@@ -80,49 +71,14 @@ public class GameNew {
       System.out.println(player.getName()
           + "'s new location is "
           + player.getPosition());
-      System.out.println("The category is " + currentCategory());
+      System.out.println("The category is " + question.getCategory(player.getPosition()));
       askQuestion();
     }
 
   }
 
   private void askQuestion() {
-    if (isPop()) {
-      System.out.println(popQuestions.removeFirst());
-    } else if (isScience()) {
-      System.out.println(scienceQuestions.removeFirst());
-    } else if (isSports()) {
-      System.out.println(sportsQuestions.removeFirst());
-    } else {
-      System.out.println(rockQuestions.removeFirst());
-    }
-  }
-
-
-  private String currentCategory() {
-    if (isPop()) {
-      return "Pop";
-    }
-    if (isScience()) {
-      return "Science";
-    }
-    if (isSports()) {
-      return "Sports";
-    }
-    return "Rock";
-  }
-
-
-  private boolean isSports() {
-    return players.get(currentPlayer).getPosition() == 2 || players.get(currentPlayer).getPosition() == 6 || players.get(currentPlayer).getPosition() == 10;
-  }
-
-  private boolean isScience() {
-    return players.get(currentPlayer).getPosition() == 1 || players.get(currentPlayer).getPosition() == 5 || players.get(currentPlayer).getPosition() == 9;
-  }
-
-  private boolean isPop() {
-    return players.get(currentPlayer).getPosition() == 0 || players.get(currentPlayer).getPosition() == 4 || players.get(currentPlayer).getPosition() == 8;
+    question.getQuestion(players.get(currentPlayer).getPosition());
   }
 
   public boolean wasCorrectlyAnswered() {
